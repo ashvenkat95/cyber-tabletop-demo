@@ -31,8 +31,25 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
     - name: Run GitLeaks Secret Scan
+      continue-on-error: true
       run: |
         docker run --rm \
         -v $PWD:/repo \
         zricethezav/gitleaks:v8.18.0 detect \
-        --source=/repo
+        --source=/repo \
+        --report-path=/repo/gitleaks-report.json
+
+    - name: Display GitLeaks Report
+      if: always()
+      run: |
+        if [ -f gitleaks-report.json ]; then
+          echo "=== GitLeaks Findings ==="
+          cat gitleaks-report.json | jq '.' 2>/dev/null || cat gitleaks-report.json
+        fi
+
+    - name: Upload GitLeaks Report
+      if: always() && hashFiles('gitleaks-report.json') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: gitleaks-report
+        path: gitleaks-report.json

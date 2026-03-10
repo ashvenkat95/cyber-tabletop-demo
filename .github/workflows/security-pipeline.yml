@@ -33,23 +33,25 @@ jobs:
     - name: Run GitLeaks Secret Scan
       continue-on-error: true
       run: |
+        mkdir -p reports
         docker run --rm \
-        -v $PWD:/repo \
+        -v $PWD:/repo:ro \
+        -v $PWD/reports:/reports \
         zricethezav/gitleaks:v8.18.0 detect \
         --source=/repo \
-        --report-path=/repo/gitleaks-report.json
+        --report-path=/reports/gitleaks-report.json
 
     - name: Display GitLeaks Report
       if: always()
       run: |
-        if [ -f gitleaks-report.json ]; then
+        if [ -f reports/gitleaks-report.json ]; then
           echo "=== GitLeaks Findings ==="
-          cat gitleaks-report.json | jq '.' 2>/dev/null || cat gitleaks-report.json
+          cat reports/gitleaks-report.json | jq '.' 2>/dev/null || cat reports/gitleaks-report.json
         fi
 
     - name: Upload GitLeaks Report
-      if: always() && hashFiles('gitleaks-report.json') != ''
+      if: always() && hashFiles('reports/gitleaks-report.json') != ''
       uses: actions/upload-artifact@v4
       with:
         name: gitleaks-report
-        path: gitleaks-report.json
+        path: reports/gitleaks-report.json

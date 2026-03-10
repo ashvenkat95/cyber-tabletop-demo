@@ -46,9 +46,7 @@ jobs:
         docker run --rm --user 0 \
         -v $PWD:/repo:ro \
         -v $PWD/reports:/reports \
-        zricethezav/gitleaks:v8.18.0 detect \
-        --source=/repo \
-        --report-path=/reports/gitleaks-report.json
+        zricethezav/gitleaks:v8.18.0 sh -c "git config --global --add safe.directory /repo && gitleaks detect --source=/repo --report-path=/reports/gitleaks-report.json"
 
     - name: Display GitLeaks Report
       if: always()

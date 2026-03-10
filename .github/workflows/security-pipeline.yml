@@ -25,6 +25,9 @@ jobs:
         cd backend
         npm install
 
+    - name: Run ESLint
+      run: cd backend && npx eslint .
+
     - name: Run Snyk Dependency Scan
       run: cd backend && npx snyk test
       env:

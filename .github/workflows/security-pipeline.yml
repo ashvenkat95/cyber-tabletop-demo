@@ -34,7 +34,8 @@ jobs:
       continue-on-error: true
       run: |
         mkdir -p reports
-        docker run --rm \
+        chmod 777 reports
+        docker run --rm --user 0 \
         -v $PWD:/repo:ro \
         -v $PWD/reports:/reports \
         zricethezav/gitleaks:v8.18.0 detect \

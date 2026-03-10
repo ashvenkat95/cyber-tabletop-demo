@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cybersecurity Tabletop Simulation</title>
+</head>
+
+<body>
+
+<h1>Cybersecurity Tabletop Simulation Demo</h1>
+
+<button onclick="getMessage()">Run Simulation</button>
+
+<p id="output"></p>
+
+<script>
+async function getMessage() {
+
+  const response = await fetch("http://localhost:3000/api/hello");
+  const data = await response.json();
+
+  document.getElementById("output").innerText = data.message;
+
+}
+</script>
+
+</body>
+</html>

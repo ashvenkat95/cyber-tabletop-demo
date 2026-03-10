@@ -30,6 +30,14 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+    - name: Install Semgrep
+      run: pip install semgrep
+
+    - name: Run Semgrep Security Scan
+      run: semgrep --config=p/security-audit .
+      env:
+        SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+
     - name: Run GitLeaks Secret Scan
       continue-on-error: true
       run: |

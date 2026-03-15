@@ -1,10 +1,12 @@
 #!/bin/sh
 # Pre-commit checks: ESLint, Semgrep
 # (GitLeaks skipped - requires Docker locally)
-# Output to stderr so it shows in Git Bash on Windows
 
 set -e
-echo "=== Pre-commit Security Checks ===" >&2
+# Redirect stdout to stderr so output shows when Git runs the hook (Windows)
+exec 1>&2
+
+echo "=== Pre-commit Security Checks ==="
 
 # 1. ESLint
 echo "" >&2

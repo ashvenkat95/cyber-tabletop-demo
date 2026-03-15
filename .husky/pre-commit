@@ -1,0 +1,4 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+cd "$(dirname "$0")/.." && sh run-pre-commit.sh 2>&1

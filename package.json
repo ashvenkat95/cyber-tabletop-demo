@@ -1,0 +1,10 @@
+{
+  "name": "cyber-tabletop-demo-root",
+  "private": true,
+  "scripts": {
+    "precommit": "bash run-pre-commit.sh"
+  },
+  "devDependencies": {
+    "husky": "^9.0.11"
+  }
+}

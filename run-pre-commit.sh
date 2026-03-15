@@ -9,7 +9,7 @@ echo "=== Pre-commit Security Checks ===" >&2
 # 1. ESLint
 echo "" >&2
 echo "[1/2] ESLint..." >&2
-cd backend && npx eslint . && cd ..
+cd backend && npm run lint && cd ..
 echo "  ESLint passed ✓" >&2
 
 # 2. Semgrep (skip if not installed - requires pip or Docker on Windows)

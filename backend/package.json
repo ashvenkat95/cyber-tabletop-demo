@@ -5,6 +5,9 @@
   "dependencies": {
     "express": "^4.18.2"
   },
+  "scripts": {
+    "lint": "eslint ."
+  },
   "devDependencies": {
     "eslint": "^8.57.0"
   }
